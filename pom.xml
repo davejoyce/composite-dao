@@ -5,28 +5,111 @@
 	<groupId>org.osframework.davejoyce</groupId>
 	<artifactId>composite-dao</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>composite-dao</name>
-	<url>http://maven.apache.org</url>
+	<url>http://composite-dao.aws.af.cm</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+		<project.build.javaVersion>1.6</project.build.javaVersion>
 
+		<!-- Dependency versions -->
+		<google-api.version>1.14.1-beta</google-api.version>
+		<logback.version>1.0.11</logback.version>
+		<slf4j.version>1.7.4</slf4j.version>
+		<spring.version>3.2.2.RELEASE</spring.version>
+		<spring-social.version>1.0.2.RELEASE</spring-social.version>
+		<spring-social-google.version>1.0.0.M2</spring-social-google.version>
+		<testng.version>6.8.1</testng.version>
+	</properties>
+<!--
+	<repositories>
+		<repository>
+			<id>spring.social.google</id>
+			<name>Spring Social Google</name>
+			<url>https://github.com/GabiAxel/maven/raw/master/</url>
+		</repository>
+	</repositories>
+-->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>3.2.2.RELEASE</version>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
+<!--
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-core</artifactId>
+			<version>${spring-social.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-google</artifactId>
+			<version>${spring-social-google.version}</version>
+		</dependency>
+-->
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client-servlet</artifactId>
+			<version>${google-api.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.8.1</version>
+			<version>${testng.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${project.build.javaVersion}</source>
+					<target>${project.build.javaVersion}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
