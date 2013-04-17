@@ -16,8 +16,8 @@ Within the composite DAO, each encapsulated, source-specific DAO is responsible 
 nitty-gritty particulars of interaction with its source. Over that, the composite DAO contains
 simple logic such as:
 
-1. Check component DAO 1. If result is non-null, return it. Otherwise,
-2. Check component DAO 2.
+1. Check component DAO _A_. If result is non-null, return it. Otherwise,
+2. Check component DAO _B_.
 
 When would I use this?
 ----------------------
@@ -25,14 +25,15 @@ When would I use this?
 A couple of example scenarios where composite DAO would benefit an application. These are only
 examples - your experience and context may expose more scenarios!
 
-1. **Local vs. Remote** a `Person` resource officially resides in a 3rd-party system outside the
+1. __Local vs. Remote:__ the Person resource officially resides in a 3rd-party system outside the
   organization, and it is cached within the organization in an RDBMS. In this scenario, the
   `PersonCompositeDAO` object contains a reference to
-    1. a JPA/Hibernate `PersonDAO` implementation
-    2. a SOAP-based WS `PersonDAO` implementation
-2. **Fast vs. Slow** a `Person` resource resides in a system accessible by mulitple protocols. In
+    1. a JPA/Hibernate `PersonDAO` implementation (the internal RDBMS)
+    2. a SOAP-based WS `PersonDAO` implementation (the external 3rd-party system)
+
+2. __Fast vs. Slow:__ the Person resource resides in a system accessible by mulitple protocols. In
   this scenario, the `PersonCompositeDAO` object contains a reference to
-    1. a TCP socket-based `PersonDAO` implementation
-    2. an HTTP / XML-RPC `PersonDAO` implementation
+    1. a TCP socket-based `PersonDAO` implementation (fast)
+    2. an HTTP / XML-RPC `PersonDAO` implementation (slow)
 
 
