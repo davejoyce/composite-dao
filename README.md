@@ -25,14 +25,14 @@ When would I use this?
 A couple of example scenarios where composite DAO would benefit an application. These are only
 examples - your experience and context may expose more scenarios!
 
-* **Local vs. Remote** a `Person` resource officially resides in a 3rd-party system outside the
+1. **Local vs. Remote** a `Person` resource officially resides in a 3rd-party system outside the
   organization, and it is cached within the organization in an RDBMS. In this scenario, the
   `PersonCompositeDAO` object contains a reference to
-** a JPA/Hibernate `PersonDAO` implementation
-** a SOAP-based WS `PersonDAO` implementation
-* **Fast vs. Slow** a `Person` resource resides in a system accessible by mulitple protocols. In
+    1. a JPA/Hibernate `PersonDAO` implementation
+    2. a SOAP-based WS `PersonDAO` implementation
+2. **Fast vs. Slow** a `Person` resource resides in a system accessible by mulitple protocols. In
   this scenario, the `PersonCompositeDAO` object contains a reference to
-** a TCP socket-based `PersonDAO` implementation
-** an HTTP / XML-RPC `PersonDAO` implementation
+    1. a TCP socket-based `PersonDAO` implementation
+    2. an HTTP / XML-RPC `PersonDAO` implementation
 
 
