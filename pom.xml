@@ -8,7 +8,25 @@
 	<packaging>war</packaging>
 
 	<name>composite-dao</name>
-	<url>http://composite-dao.aws.af.cm</url>
+	<description>Demonstrates combination of Composite and DAO patterns using the Spring Framework.</description>
+	<url>https://github.com/davejoyce/composite-dao</url>
+	<inceptionYear>2013</inceptionYear>
+
+	<scm>
+		<url>https://github.com/davejoyce/composite-dao</url>
+		<connection>scm:git:git://github.com/davejoyce/composite-dao.git</connection>
+		<developerConnection>scm:git:https://github.com/davejoyce/composite-dao.git</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/davejoyce/composite-dao/issues</url>
+	</issueManagement>
+
+	<ciManagement>
+		<system>buildhive</system>
+		<url>https://buildhive.cloudbees.com/job/davejoyce/job/composite-dao</url>
+	</ciManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -108,6 +126,14 @@
 				<configuration>
 					<source>${project.build.javaVersion}</source>
 					<target>${project.build.javaVersion}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 				</configuration>
 			</plugin>
 		</plugins>

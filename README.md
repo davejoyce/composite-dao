@@ -3,6 +3,8 @@ composite-dao
 
 Demonstrates combination of Composite and DAO patterns using the Spring Framework.
 
+[![Build Status](https://buildhive.cloudbees.com/job/davejoyce/job/composite-dao/badge/icon)](https://buildhive.cloudbees.com/job/davejoyce/job/composite-dao/)
+
 What's the point?
 -----------------
 
@@ -22,8 +24,8 @@ simple logic such as:
 When would I use this?
 ----------------------
 
-A couple of example scenarios where composite DAO would benefit an application. These are only
-examples - your experience and context may expose more scenarios!
+Here are a couple of example scenarios where composite DAO would benefit an application. These are
+only examples - your experience and context may expose more. In other words, YMMV!
 
 1. __Local vs. Remote:__ the Person resource officially resides in a 3rd-party system outside the
   organization, and it is cached within the organization in an RDBMS. In this scenario, the
