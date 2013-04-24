@@ -5,12 +5,21 @@ Demonstrates combination of Composite and DAO patterns using the Spring Framewor
 
 [![Build Status](https://buildhive.cloudbees.com/job/davejoyce/job/composite-dao/badge/icon)](https://buildhive.cloudbees.com/job/davejoyce/job/composite-dao/)
 
+What does this demo show?
+-------------------------
+
+This demo app uses the [Spring Social Google](https://github.com/guznik/spring-social-google)
+extension and a small application-local RDBMS to show how a composite DAO works in the
+_Local vs. Remote_ scenario described below. This demo app:
+
+* Performs RESTful interactions with the [Google Tasks API](https://developers.google.com/google-apps/tasks/) for remote operations
+* Performs CRUD operations on the RDBMS via JPA / [Hibernate](http://www.hibernate.org/)
+
 What's the point?
 -----------------
 
 A composite DAO object enables transparent manipulation of persistent entities
-that either reside in a local _system of reference_ (e.g. a 'local' database) or a remote
-_system of record_ (e.g. a 3rd-party service provider). By wrapping source-specific DAOs in
+that may reside in multiple storage repositories. By wrapping source-specific DAOs in
 a composite DAO, a dependent service can perform normal, simple interaction with a DAO instance
 (the composite DAO) and **without** having to contain any source-specific logic.
 
@@ -32,7 +41,6 @@ only examples - your experience and context may expose more. In other words, YMM
   `PersonCompositeDAO` object contains a reference to
     1. a JPA/Hibernate `PersonDAO` implementation (the internal RDBMS)
     2. a SOAP-based WS `PersonDAO` implementation (the external 3rd-party system)
-
 2. __Fast vs. Slow:__ the Person resource resides in a system accessible by mulitple protocols. In
   this scenario, the `PersonCompositeDAO` object contains a reference to
     1. a TCP socket-based `PersonDAO` implementation (fast)

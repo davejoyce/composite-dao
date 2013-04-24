@@ -1,4 +1,4 @@
 /**
  * Common classes, interfaces, exceptions.
  */
-package org.osframework.davejoyce.composite;
+package org.osframework.davejoyce.dao.composite;
