@@ -44,11 +44,13 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		
 		<!-- Dependency versions -->
+		<cloudfoundry-runtime.version>0.8.2</cloudfoundry-runtime.version>
 		<google-api.version>1.14.1-beta</google-api.version>
 		<google-tasks-api.version>v1-rev13-1.14.2-beta</google-tasks-api.version>
 		<logback.version>1.0.11</logback.version>
 		<slf4j.version>1.7.4</slf4j.version>
 		<spring.version>3.2.2.RELEASE</spring.version>
+		<spring-social.version>1.1.0.M1</spring-social.version>
 		<spring-social-google.version>1.0.0.M2</spring-social-google.version>
 		<testng.version>6.8.1</testng.version>
 	</properties>
@@ -59,9 +61,23 @@
 			<name>Spring Social Google</name>
 			<url>https://raw.github.com/GabiAxel/maven/master/</url>
 		</repository>
+		<!-- For developing against latest Spring milestones -->
+		<repository>
+			<id>org.springframework.maven.milestone</id>
+			<name>Spring Maven Milestone Repository</name>
+			<url>http://maven.springframework.org/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</repository>
 	</repositories>
 
 	<dependencies>
+		<!-- Spring dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -73,7 +89,21 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-web</artifactId>
+			<version>${spring-social.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-google</artifactId>
@@ -89,24 +119,20 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-<!--
+
+		<!-- CloudFoundry dependencies -->
 		<dependency>
-			<groupId>com.google.api-client</groupId>
-			<artifactId>google-api-client-servlet</artifactId>
-			<version>${google-api.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.cloudfoundry</groupId>
+			<artifactId>cloudfoundry-runtime</artifactId>
+			<version>${cloudfoundry-runtime.version}</version>
 		</dependency>
--->
+
 		<dependency>
 			<groupId>com.google.apis</groupId>
 			<artifactId>google-api-services-tasks</artifactId>
 			<version>${google-tasks-api.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>

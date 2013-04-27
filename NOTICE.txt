@@ -1,0 +1,9 @@
+   Composite DAO
+   Copyright 2013 Dave Joyce
+
+   This product includes software developed by
+   SpringSource (http://www.springsource.org/).
+
+   This product includes software developed at
+   Google, Inc. (http://www.google.com/).
+
