@@ -45,6 +45,7 @@
 		
 		<!-- Dependency versions -->
 		<cloudfoundry-runtime.version>0.8.2</cloudfoundry-runtime.version>
+		<commons-lang.version>2.6</commons-lang.version>
 		<google-api.version>1.14.1-beta</google-api.version>
 		<google-tasks-api.version>v1-rev13-1.14.2-beta</google-tasks-api.version>
 		<hibernate-entitymanager.version>4.2.1.Final</hibernate-entitymanager.version>
@@ -194,6 +195,12 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate-entitymanager.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang.version}</version>
 		</dependency>
 		
 		<!-- CloudFoundry dependencies -->
