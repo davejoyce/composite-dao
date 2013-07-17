@@ -18,6 +18,7 @@ package io.github.davejoyce.dao.composite.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Uniquely identified application user.
@@ -25,10 +26,9 @@ import javax.persistence.Id;
  * @author <a href="mailto:dave@osframework.org">Dave Joyce</a>
  */
 @Entity
+@Table(name="APP_USER")
 public class User {
 
-	@Id
-	@Column(name="ID", nullable=false,insertable=true,updatable=false)
 	private String id;
 
 	public User() {}
@@ -40,6 +40,8 @@ public class User {
 	/**
 	 * @return the itemId
 	 */
+	@Id
+	@Column(name="ID", nullable=false,insertable=true,updatable=false)
 	public String getId() {
 		return id;
 	}
