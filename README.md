@@ -6,9 +6,9 @@ Demonstrates the [Composite DAO pattern](http://davejoyce.github.io/projects/201
 What does it do?
 ----------------
 
-This demo app uses the [Spring Social Google](https://github.com/GabiAxel/spring-social-google) extension and a small application-local RDBMS to show how a composite DAO works in a _local vs. remote_ scenario.
+This demo app uses the [Spring Social Twitter](http://static.springframework.org/spring-social-twitter/docs/1.0.x/reference/html) extension and a small application-local RDBMS to show how a composite DAO works in a _local vs. remote_ scenario.
 
-* Performs RESTful interactions with the [Google Tasks API](https://developers.google.com/google-apps/tasks/) for remote operations
+* Performs RESTful interactions via the [Twitter API](https://dev.twitter.com) for remote operations
 * Performs CRUD operations on the RDBMS via JPA / [Hibernate](http://www.hibernate.org/)
 
 Continuous integration
