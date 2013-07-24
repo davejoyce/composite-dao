@@ -17,11 +17,11 @@
 
 	<description>JDBC DataSource definitions</description>
 
+	<context:property-placeholder location="classpath:/META-INF/properties/${targetEnv}/configuration.properties" />
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy"
 		  p:targetDataSource-ref="mainDataSource" />
 
 	<beans profile="development">
-		<context:property-placeholder location="classpath:/META-INF/properties/development/datasource.properties" />
 		<bean id="mainDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close"
 		      p:driverClass="${jdbc.driverClass}"
 		      p:jdbcUrl="${jdbc.jdbcUrl}"
