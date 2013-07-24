@@ -7,10 +7,14 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:/spring/composite-dao-datasource.xml
-		             classpath:/spring/composite-dao-social.xml
-		             classpath:/spring/composite-dao-dao.xml
-		             classpath:/spring/composite-dao-service.xml</param-value>
+		<param-value>classpath:/META-INF/spring/composite-dao-datasource.xml
+		             classpath:/META-INF/spring/composite-dao-repository.xml
+		             classpath:/META-INF/spring/composite-dao-social.xml
+		             classpath:/META-INF/spring/composite-dao-service.xml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>contextInitializerClasses</param-name>
+		<param-value>org.springframework.social.quickstart.config.EnvironmentInitializer</param-value>
 	</context-param>
 
 	<listener>
@@ -54,10 +58,6 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/composite-dao-servlet.xml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>contextInitializerClasses</param-name>
-			<param-value>org.springframework.social.quickstart.config.EnvironmentInitializer</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

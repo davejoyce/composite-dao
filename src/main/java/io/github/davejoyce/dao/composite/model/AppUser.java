@@ -16,12 +16,17 @@
 package io.github.davejoyce.dao.composite.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -36,46 +41,53 @@ import org.apache.commons.lang.builder.ToStringStyle;
 @Table(name="APP_USER")
 public class AppUser implements Serializable {
 
-	private static final long serialVersionUID = -6499611992584963L;
+	private static final long serialVersionUID = 1512453493359804850L;
 
-	private Long id = null;
-	private String username = null;
-	private String profileImageUrl = null;
+	private String userId = null;
+	private Date createdDate = null;
+	private boolean active = false;
 
 	public AppUser() {}
 
-	public AppUser(final Long id, final String username, final String profileImageUrl) {
-		this.id = id;
-		this.username = username;
-		this.profileImageUrl = profileImageUrl;
+	public AppUser(final String userId) {
+		this(userId, Calendar.getInstance().getTime());
+	}
+
+	public AppUser(final String userId, final Date createdDate) {
+		this();
+		this.setUserId(userId);
+		this.setCreateDate(createdDate);
 	}
 
 	@Id
-	@Column(name="APP_USER_ID", nullable=false)
-	public Long getId() {
-		return id;
+	@Column(name="APP_USER_ID", length=50, nullable=false)
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setUserId(String username) {
+		Validate.notNull(userId, "userId argument must not be null!");
+		this.userId = username;
 	}
 
-	@Column(name="USERNAME", length=15, nullable=false, unique=true)
-	public String getUsername() {
-		return username;
+	@Temporal(TemporalType.DATE)
+	@Column(name="CREATED_DT", nullable=false, insertable=true, updatable=false)
+	public Date getCreateDate() {
+		return createdDate;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCreateDate(Date createdDate) {
+		Validate.notNull(createdDate, "createdDate argument must not be null!");
+		this.createdDate = createdDate;
 	}
 
-	@Column(name="PROFILE_IMAGE_URL", nullable=false)
-	public String getProfileImageUrl() {
-		return profileImageUrl;
+	@Column(name="ACTIVE", nullable=false)
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setProfileImageUrl(String profileImageUrl) {
-		this.profileImageUrl = profileImageUrl;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	@Override
@@ -86,9 +98,9 @@ public class AppUser implements Serializable {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
-		           .append(id)
-		           .append(username)
-		           .append(profileImageUrl)
+		           .append(userId)
+		           .append(createdDate)
+		           .append(active)
 		           .toHashCode();
 	}
 
@@ -98,9 +110,9 @@ public class AppUser implements Serializable {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		final AppUser other = (AppUser) obj;
 		return new EqualsBuilder()
-		           .append(id, other.id)
-		           .append(username, other.username)
-		           .append(profileImageUrl, other.profileImageUrl)
+		           .append(userId, other.userId)
+		           .append(createdDate, other.createdDate)
+		           .append(active, other.active)
 		           .isEquals();
 	}
 

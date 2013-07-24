@@ -31,6 +31,7 @@ public class EnvironmentInitializer implements ApplicationContextInitializer<Con
 	public void initialize(ConfigurableApplicationContext context) {
 		DeployedEnvironment deployEnv = DeployedEnvironment.detect(new CloudEnvironment().getInstanceInfo());
 		ConfigurableEnvironment env = context.getEnvironment();
+		System.setProperty("targetEnv", deployEnv.getEnvironmentName());
 		env.setActiveProfiles(deployEnv.getEnvironmentName());
 	}
 

@@ -2,6 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
 	<groupId>io.github.davejoyce</groupId>
 	<artifactId>composite-dao</artifactId>
 	<version>1.0-SNAPSHOT</version>
@@ -233,4 +239,48 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>jenkins</id>
+			<activation>
+				<property>
+					<name>env.BUILD_NUMBER</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>de.juplo</groupId>
+						<artifactId>hibernate4-maven-plugin</artifactId>
+						<version>1.0.1</version>
+						<executions>
+							<execution>
+								<id>generate-schema-h2</id>
+								<goals>
+									<goal>export</goal>
+								</goals>
+								<configuration>
+									<driverClassName>org.h2.Driver</driverClassName>
+									<hibernateDialect>org.hibernate.dialect.H2Dialect</hibernateDialect>
+									<url>jdbc:h2:file:${project.build.directory}/generated-h2-db</url>
+									<username>sa</username>
+									<password></password>
+									<type>BOTH</type>
+									<outputFile>${project.basedir}/src/main/resources/META-INF/ddl/h2-schema.ddl.sql</outputFile>
+								</configuration>
+							</execution>
+<!--
+							<execution>
+								<id>generate-schema-mysql</id>
+								<goals>
+									<goal>export</goal>
+								</goals>
+							</execution>
+-->
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

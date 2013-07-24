@@ -24,9 +24,9 @@ import org.cloudfoundry.runtime.env.ApplicationInstanceInfo;
  */
 public enum DeployedEnvironment {
 
-	LOCAL("localhost"),
-	CF_MICRO("cloudfoundry"),
-	CF_PUBLIC("cloudfoundry");
+	LOCAL("development"),
+	CF_MICRO("cloud"),
+	CF_PUBLIC("cloud");
 
 	private final String environmentName;
 

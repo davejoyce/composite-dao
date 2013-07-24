@@ -6,23 +6,34 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:cloud="http://schema.cloudfoundry.org/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://schema.cloudfoundry.org/spring http://schema.cloudfoundry.org/spring/cloudfoundry-spring-0.8.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<description>JDBC DataSource definitions</description>
-	<beans profile="localhost">
-		<context:property-placeholder location="classpath:/META-INF/properties/localhost/datasource.properties" />
-		<bean id="mainDataSource" class="com.jolbox.bonecp.BoneCPDataSource"
-		      p:driverClass="${db.driverClass}"
-		      p:jdbcUrl="${db.jdbcUrl}"
-		      p:username="${db.username}"
-		      p:password="${db.password}" />
-		<bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy"
-		      p:targetDataSource-ref="mainDataSource" />
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy"
+		  p:targetDataSource-ref="mainDataSource" />
+
+	<beans profile="development">
+		<context:property-placeholder location="classpath:/META-INF/properties/development/datasource.properties" />
+		<bean id="mainDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close"
+		      p:driverClass="${jdbc.driverClass}"
+		      p:jdbcUrl="${jdbc.jdbcUrl}"
+		      p:username="${jdbc.username}"
+		      p:password="${jdbc.password}"
+		      p:minConnectionsPerPartition="${jdbc.minConnectionsPerPartition}"
+		      p:maxConnectionsPerPartition="${jdbc.maxConnectionsPerPartition}"
+		      p:partitionCount="${jdbc.partitionCount}" />
 	</beans>
-	<beans profile="cloudfoundry">
-		
+	<beans profile="cloud">
+		<cloud:data-source id="mainDataSource">
+			<cloud:pool pool-size="2-10" />
+		</cloud:data-source>
 	</beans>
 </beans>
