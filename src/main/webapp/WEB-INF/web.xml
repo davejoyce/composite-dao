@@ -12,10 +12,12 @@
 		             classpath:/META-INF/spring/composite-dao-social.xml
 		             classpath:/META-INF/spring/composite-dao-service.xml</param-value>
 	</context-param>
+<!--
 	<context-param>
 		<param-name>contextInitializerClasses</param-name>
 		<param-value>org.springframework.social.quickstart.config.EnvironmentInitializer</param-value>
 	</context-param>
+-->
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -63,7 +65,7 @@
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>appServlet</servlet-name>
+		<servlet-name>composite-dao</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 

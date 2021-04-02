@@ -14,9 +14,7 @@ This demo app uses the [Spring Social Twitter](http://static.springframework.org
 Continuous integration
 ----------------------
 
-[![Build Status](https://buildhive.cloudbees.com/job/davejoyce/job/composite-dao/badge/icon)](https://buildhive.cloudbees.com/job/davejoyce/job/composite-dao/)
-
-Continuous integration for this project is provided by CloudBees [BuildHive](http://buildhive.cloudbees.com/).
+Continuous integration for this project is provided by **TBD**.
 
 License
 -------

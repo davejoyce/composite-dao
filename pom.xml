@@ -37,21 +37,15 @@
 		<url>https://github.com/davejoyce/composite-dao/issues</url>
 	</issueManagement>
 
-	<ciManagement>
-		<system>buildhive</system>
-		<url>https://buildhive.cloudbees.com/job/davejoyce/job/composite-dao</url>
-	</ciManagement>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.build.javaVersion>1.6</project.build.javaVersion>
+		<project.build.javaVersion>1.8</project.build.javaVersion>
 		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		
-		<!-- Dependency versions -->
+		<!-- Dependency versions (alphabetical order) -->
 		<bonecp.version>0.8.0-rc1</bonecp.version>
-		<cloudfoundry-runtime.version>0.8.4</cloudfoundry-runtime.version>
 		<commons-collections.version>3.2.2</commons-collections.version>
 		<commons-lang.version>2.6</commons-lang.version>
 		<h2.version>1.3.172</h2.version>
@@ -59,34 +53,36 @@
 		<logback.version>1.0.13</logback.version>
 		<mysql-connector-java.version>8.0.16</mysql-connector-java.version>
 		<slf4j.version>1.7.5</slf4j.version>
-		<spring.version>[3.2.2.RELEASE,3.3.0.RELEASE)</spring.version>
+		<spring.version>4.3.30.RELEASE</spring.version>
 		<spring-data-jpa.version>1.3.2.RELEASE</spring-data-jpa.version>
 		<spring-social-twitter.version>1.0.5.RELEASE</spring-social-twitter.version>
 		<testng.version>6.8.5</testng.version>
+
+		<!-- Plugin versions (alphabetical order) -->
+		<hibernate4-maven-plugin.version>1.1.1</hibernate4-maven-plugin.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+		<maven-war-plugin.version>3.3.1</maven-war-plugin.version>
 	</properties>
 
-	<repositories>
-		<!-- For developing against latest Spring milestones -->
-		<repository>
-			<id>org.springframework.maven.milestone</id>
-			<name>Spring Maven Milestone Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-		</repository>
-	</repositories>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<!-- Spring dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
@@ -97,12 +93,10 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
@@ -143,13 +137,6 @@
 			<artifactId>commons-lang</artifactId>
 			<version>${commons-lang.version}</version>
 		</dependency>
-		
-		<!-- CloudFoundry dependencies -->
-		<dependency>
-			<groupId>org.cloudfoundry</groupId>
-			<artifactId>cloudfoundry-runtime</artifactId>
-			<version>${cloudfoundry-runtime.version}</version>
-		</dependency>
 
 		<!-- Logging dependencies -->
 		<dependency>
@@ -179,12 +166,12 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
 	<build>
+
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -204,11 +191,41 @@
 				</includes>
 			</resource>
 		</resources>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>de.juplo</groupId>
+					<artifactId>hibernate4-maven-plugin</artifactId>
+					<version>${hibernate4-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven-war-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
 				<configuration>
 					<source>${project.build.javaVersion}</source>
 					<target>${project.build.javaVersion}</target>
@@ -217,7 +234,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
 				<configuration>
 					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 				</configuration>
@@ -225,7 +241,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -239,7 +254,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
 				<executions>
 					<execution>
 						<id>attach-javadoc</id>
@@ -260,7 +274,6 @@
 					<plugin>
 						<groupId>de.juplo</groupId>
 						<artifactId>hibernate4-maven-plugin</artifactId>
-						<version>1.0.1</version>
 						<executions>
 							<execution>
 								<id>generate-schema-h2</id>
@@ -272,7 +285,7 @@
 									<hibernateDialect>org.hibernate.dialect.H2Dialect</hibernateDialect>
 									<url>jdbc:h2:file:${project.build.directory}/${project.artifactId}-db</url>
 									<username>sa</username>
-									<password></password>
+									<password/>
 									<type>CREATE</type>
 									<outputFile>${project.basedir}/src/main/resources/META-INF/ddl/h2-schema.ddl.sql</outputFile>
 								</configuration>
